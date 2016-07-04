@@ -46,7 +46,7 @@ Options for:
 
 struct Data{
     char *data;
-    int size;
+    int32_t size;
 };
 
 static struct Data
@@ -74,7 +74,7 @@ file_dump(char *filename){
 #define BOGGLE_BOARD_SIZE BOGGLE_BOARD_W*BOGGLE_BOARD_H
 
 struct Boggle_Board{
-    char letter[BOGGLE_BOARD_W * BOGGLE_BOARD_H];
+    char letter[BOGGLE_BOARD_SIZE];
 };
 
 static int32_t
@@ -144,9 +144,9 @@ struct Dictionary{
 };
 
 static struct Dictionary
-make_dictionary(int word_count){
+make_dictionary(int32_t word_count){
     struct Dictionary dict = {0};
-    int mem_size = (word_count*(sizeof(char*) + sizeof(int)*2));
+    int32_t mem_size = (word_count*(sizeof(char*) + sizeof(int)*2));
     dict.word = (char**)malloc(mem_size);
     dict.len = (int*)(dict.word + word_count);
     dict.already_used = (int*)(dict.len + word_count);
@@ -204,7 +204,6 @@ narrow_range(struct Match_Range range,
     int32_t new_s = range.first;
     int32_t new_e = range.last;
     int32_t i = 0;
-    
     
     if (s != e){
         for(;s < e;){
